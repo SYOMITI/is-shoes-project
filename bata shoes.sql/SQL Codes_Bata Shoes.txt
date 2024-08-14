@@ -1,0 +1,23 @@
+DROP DATABASE IF EXISTS `bata_shoes`;
+
+CREATE DATABASE IF NOT EXISTS `bata_shoes`;
+
+CREATE TABLE IF NOT EXISTS `bata_shoes`.`users` (`User_ID` INT NOT NULL AUTO_INCREMENT , `Fullname` TEXT NOT NULL , `Phone_Number` TEXT NOT NULL , `Email_Address` TEXT NOT NULL , `Password` TEXT NOT NULL , `User_Type` TEXT NOT NULL , PRIMARY KEY (`User_ID`), UNIQUE (`Email_Address`)) ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `bata_shoes`.`product` (`Product_ID` INT NOT NULL AUTO_INCREMENT , `Name` TEXT NOT NULL , `Description` TEXT NOT NULL , `Quantity` TEXT NULL , `Price` DOUBLE NOT NULL , `Image` TEXT NULL, PRIMARY KEY (`Product_ID`)) ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `bata_shoes`.`2fa` (`2FA_ID` INT NOT NULL AUTO_INCREMENT , `OTP` TEXT NOT NULL , `Created_At` TEXT NOT NULL DEFAULT NOW(), `Expiry_Time` TEXT NOT NULL DEFAULT TIMESTAMPADD(MINUTE, 3, NOW()), `Status` TEXT NOT NULL DEFAULT 'Active', PRIMARY KEY (`2FA_ID`)) ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `bata_shoes`.`orders` (`Order_ID` INT NOT NULL AUTO_INCREMENT , `User_ID` INT NOT NULL, `Product_ID` TEXT NOT NULL, `Total_Price` TEXT NOT NULL , `Quantity` TEXT NOT NULL , `Created_At` DATE NOT NULL DEFAULT DATE(NOW()), `Status` TEXT NOT NULL DEFAULT 'Pending', PRIMARY KEY (`Order_ID`)) ENGINE = InnoDB;
+
+INSERT INTO `bata_shoes`.`product` (`Name`, `Description`, `Quantity`, `Price`, `Image`)
+VALUES
+  ('Classic Leather Shoes', 'Elegant and durable leather shoes perfect for formal occasions.', '50', 89.99, '1.jpg'),
+  ('Running Sneakers', 'Lightweight and comfortable sneakers designed for running and sports activities.', '100', 59.99, '2.jpg'),
+  ('Casual Slip-Ons', 'Stylish slip-ons that offer both comfort and versatility for everyday wear.', '75', 39.99, '3.jpg'),
+  ('Ankle Boots', 'Fashionable ankle boots with a modern design, suitable for various outfits.', '30', 99.99, '4.jpg'),
+  ('Hiking Boots', 'Rugged and sturdy boots designed for hiking and outdoor adventures.', '40', 129.99, '5.jpg');
+
+
+INSERT INTO `bata_shoes`.`users`(`Fullname`, `Phone_Number`, `Email_Address`, `Password`, `User_Type`) VALUES ('Administrator 1','+254712345678','ian.otuoma@strathmore.edu',md5('12345678'),'Administrator'); 
+ 
